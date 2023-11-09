@@ -1,44 +1,42 @@
 package com.example.post.controller;
 
+import com.example.post.dto.PostRequestDto;
+import com.example.post.dto.PostResponseDto;
+import com.example.post.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class NoticeController {
+public class PostController {
 
-    private final NoticeService noticeService;
+    private final PostService postService;
 
-    public NoticeController(NoticeService noticeService) {
-        this.noticeService = noticeService;
+    public PostController(PostService postService) {
+        this.postService = postService;
     }
 
-    @PostMapping("/notice")
-    public NoticeResponseDto createNotice(@RequestBody NoticeRequestDto requestDto) {
-        return noticeService.createNotice(requestDto);
+    @PostMapping("/post")
+    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto) {
+        return postService.createPost(requestDto);
     }
 
-    @GetMapping("/notice")
-    public List<NoticeResponseDto> getNotice() {
-        return noticeService.getNotice();
+    @GetMapping("/post")
+    public List<PostResponseDto> getPost() {
+        return postService.getPost();
 
     }
 
-    @PutMapping("/notice/{id}")
-    public Long updateNotice(@PathVariable Long id, @RequestBody NoticeRequestDto requestDto) {
-        return noticeService.updateNotice(id, requestDto);
+    @PutMapping("/post/{id}")
+    public Long updatePost(@PathVariable Long id, @PathVariable String pw, @RequestBody PostRequestDto requestDto) {
+        return postService.updatePost(id, pw, requestDto);
     }
 
-    @DeleteMapping("/notice/{id}")
-    public Long deleteNotice(@PathVariable Long id) {
-        return noticeService.deleteNotice(id);
+    @DeleteMapping("/post/{id}")
+    public Long deletePost(@PathVariable Long id, @PathVariable String pw) {
+        return postService.deletePost(id, pw);
     }
-
-}
-
-
-
 
 
 }
